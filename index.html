@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>I Foro Regional sobre GRD y Vulnerabilidad Climática | UNAJMA</title>
+<!-- Línea 6: Cambia Poppins por Montserrat -->
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+/* =========================================================
+   VARIABLES GLOBALES — Paleta Verde Viva / Azul Intenso
+   ========================================================= */
+:root{
+  --bg-light:#f7f7f7b5;      /* Verde muy claro (Fondo principal) */
+  --bg-mid:#fcfdfc00;        /* Verde claro (Fondo degradado) */
+  --bg-card:#fcfcf7;       /* Blanco (Fondo de las tarjetas) */
+  --green-primary:#2e7d32; /* Verde oscuro (Botones y textos secundarios) */
+  --green-bright:#4caf50;  /* Verde vivo (Acentos y brillos) */
+  --green-light:#319134;   /* Verde pastel (Bordes y líneas) */
+  --blue-text:#142d17;     /* Azul intenso (Títulos principales) */
+  --text-main:#0a0a0a;     /* Verde muy oscuro (Texto normal) */
+  --text-muted:#000000;    /* Verde medio (Texto secundario) */
+}
+*{
+  margin:0;padding:0;box-sizing:border-box;
+  font-family:'Raleway', sans-serif; /* <-- Cambia 'Poppins' por 'Montserrat' */
+  scroll-behavior:smooth;
+}
+html{scroll-padding-top:80px;}
+body{
+  background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-mid) 100%);
+  color:var(--text-main);
+  overflow-x:hidden;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  line-height:1.6;
+  min-height: 100vh;
+}
+
+/* =========================================================
+   COPOS DE NIEVE ANIMADOS (fondo global)
+   ========================================================= */
+.snow-field{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:1;}
+.snowflake{
+  position:absolute;top:-10%;width:24px;height:24px;
+  color:#267c2b;
+  filter:drop-shadow(0 0 6px rgba(255,255,255,.8)) drop-shadow(0 0 12px rgba(100,181,246,.5));
+  animation:fallSnow linear infinite;
+  opacity:0;
+}
+@keyframes fallSnow{
+  0%{transform:translateY(0) translateX(0) rotate(0deg) scale(.6);opacity:0;}
+  10%{opacity:.9;}
+  50%{transform:translateY(50vh) translateX(30px) rotate(180deg) scale(1);}
+  90%{opacity:.7;}
+  100%{transform:translateY(110vh) translateX(-20px) rotate(360deg) scale(.6);opacity:0;}
+}
+@media (prefers-reduced-motion: reduce){.snowflake{display:none;}}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+header{
+  position:fixed;width:100%;top:0;z-index:1000;
+  background:rgba(232,245,233,.9);
+  backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);
+  border-bottom:2px solid var(--green-light);
+  padding-top:env(safe-area-inset-top,0px);
+  transition:all .3s ease;
+}
+.nav-container{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:.9rem 2rem;}
+.logo-box{display:flex;align-items:center;gap:12px;color:var(--blue-text);font-weight:700;font-size:.95rem;}
+.logo-box img{
+  width:80px;height:80px;border-radius:50%;object-fit:cover;
+  border:0px solid var(--green-bright);
+  box-shadow:0 0 10px var(--glow-green);
+}
+.nav-links{display:flex;gap:22px;list-style:none;}
+.nav-links a{
+  color:var(--green-primary);text-decoration:none;font-weight:600;font-size:.88rem;
+  padding:6px 0;position:relative;transition:color .3s;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:0;left:50%;width:0;height:2px;
+  background:var(--blue-text);
+  transition:all .3s;transform:translateX(-50%);border-radius:2px;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--blue-text);}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+.menu-toggle{display:none;color:var(--blue-text);font-size:1.5rem;background:none;border:none;cursor:pointer;}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero{
+  position:relative;min-height:100vh;
+  /* NUEVA LÍNEA CON LA IMAGEN DE FONDO Y UNA CAPA OSCURA */
+  background: linear-gradient(rgba(79, 239, 133, 0.65), rgba(18, 224, 59, 0.65)), url('fondo_hero.jpeg') no-repeat center center/cover;
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  color:#70dc6a; /* Cambié el color del texto a blanco para que resalte */
+  padding:9rem 1.5rem 5rem;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;opacity:.4;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(76,175,80,.4) 1px, transparent 1.5px),
+    radial-gradient(circle at 70% 60%, rgba(13,71,161,.2) 1px, transparent 1.5px),
+    radial-gradient(circle at 40% 80%, rgba(76,175,80,.3) 1px, transparent 1.5px);
+  background-size:140px 140px,180px 180px,110px 110px;
+  animation:starsFloat 25s linear infinite;
+}
+@keyframes starsFloat{
+  0%{background-position:0 0,0 0,0 0;}
+  100%{background-position:140px 140px,180px -180px,-110px 110px;}
+}
+.hero-content{max-width:900px;position:relative;z-index:2;animation:fadeInUp 1.2s cubic-bezier(.2,.8,.2,1);}
+.badge-organizer{
+  display:inline-block;padding:9px 22px;border-radius:50px;font-size:.78rem;
+  font-weight:700;letter-spacing:1.2px;margin-bottom:1.6rem;text-transform:uppercase;
+  color:var(--green-primary);
+  background:rgba(255,255,255,.7);
+  border:2px solid var(--green-bright);
+  box-shadow:0 4px 15px rgba(76,175,80,.2);
+}
+.hero h1{
+  font-size:2.6rem;font-weight:800;line-height:1.2;margin-bottom:1.2rem;
+  color: var(--blue-text);
+  text-shadow: 0 2px 10px rgba(13,71,161,.15);
+}
+.hero p{font-size:1.08rem;margin-bottom:2rem;color:var(--text-main);font-weight:400;max-width:720px;margin-left:auto;margin-right:auto;}
+
+/* Contador */
+.countdown{display:flex;justify-content:center;gap:14px;margin-bottom:2.4rem;flex-wrap:wrap;}
+.count-box{
+  background:rgba(255,255,255,.85);border:2px solid var(--green-light);
+  border-radius:16px;padding:14px 20px;min-width:86px;
+  backdrop-filter:blur(10px);position:relative;overflow:hidden;
+  box-shadow:0 8px 20px rgba(27,94,32,.1);
+  transition:transform .3s, box-shadow .3s;
+}
+.count-box:hover{transform:translateY(-4px);box-shadow:0 12px 25px rgba(27,94,32,.2), var(--glow-green);}
+.count-box::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--green-bright),var(--blue-text),var(--green-bright));
+}
+.count-box .num{
+  font-size:1.9rem;font-weight:800;display:block;line-height:1;
+  color:var(--blue-text);
+}
+.count-box .lbl{font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--green-primary);margin-top:6px;display:block;font-weight:600;}
+
+/* Detalles */
+.hero-details{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:2.8rem;}
+.detail-card{
+  background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+  padding:14px 26px;border-radius:14px;border:2px solid var(--green-light);
+  display:flex;align-items:center;gap:12px;font-weight:600;font-size:.92rem;
+  color:var(--blue-text);
+  transition:all .3s;box-shadow:0 6px 15px rgba(27,94,32,.1);
+  text-decoration:none;
+}
+.detail-card:hover{border-color:var(--blue-text);transform:translateY(-3px);box-shadow:0 10px 25px rgba(13,71,161,.15);}
+.detail-card i{font-size:1.3rem;color:var(--green-bright);}
+
+/* CTAs */
+.cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.btn-cta{
+  padding:15px 32px;border-radius:50px;text-decoration:none;font-weight:700;
+  font-size:1rem;display:inline-flex;align-items:center;gap:10px;
+  transition:all .35s cubic-bezier(.2,.8,.2,1);position:relative;overflow:hidden;
+  background:var(--green-primary);
+  color:#ffffff;
+  box-shadow:0 8px 20px rgba(46,125,50,.3);
+}
+.btn-cta:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(46,125,50,.5);background:var(--green-bright);}
+.btn-cta.secondary{
+  background:var(--blue-text);
+  color:#ffffff;
+  box-shadow:0 8px 20px rgba(13,71,161,.3);
+}
+.btn-cta.secondary:hover{box-shadow:0 12px 30px rgba(13,71,161,.5);background:#1565c0;}
+.btn-cta i{font-size:1.1rem;}
+
+/* =========================================================
+   SECCIONES GENERALES
+   ========================================================= */
+.section{padding:5.5rem 1.5rem;max-width:1200px;margin:0 auto;position:relative;z-index:2;}
+.section-title{text-align:center;margin-bottom:3.5rem;}
+.section-title h2{
+  font-size:2.1rem;color:var(--blue-text);position:relative;
+  display:inline-block;padding-bottom:14px;font-weight:800;letter-spacing:.5px;
+}
+.section-title h2::after{
+  content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:80px;height:4px;border-radius:4px;
+  background:linear-gradient(90deg,var(--green-bright),var(--blue-text));
+}
+.section-title p{color:var(--text-muted);margin-top:.8rem;font-size:.95rem;font-weight:500;}
+
+/* =========================================================
+   EJES TEMÁTICOS
+   ========================================================= */
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.8rem;}
+.card{
+  background:var(--bg-card);
+  padding:2rem 1.8rem;border-radius:22px;cursor:pointer;
+  border:2px solid var(--green-light);
+  box-shadow:var(--card-shadow);
+  transition:all .4s cubic-bezier(.2,.8,.2,1);
+  position:relative;overflow:hidden;
+}
+.card::before{
+  content:'';position:absolute;top:0;left:0;width:100%;height:4px;
+  background:linear-gradient(90deg,var(--green-bright),var(--blue-text));
+  transform:scaleX(0);transform-origin:left;transition:transform .4s;
+}
+.card:hover::before{transform:scaleX(1);}
+.card:hover{
+  transform:translateY(-8px);
+  border-color:var(--green-bright);
+  box-shadow:0 25px 45px -15px rgba(27,94,32,.25), 0 0 25px rgba(76,175,80,.15);
+}
+.card-icon{
+  width:64px;height:64px;border-radius:18px;
+  background:linear-gradient(135deg, var(--bg-light), #ffffff);
+  display:flex;align-items:center;justify-content:center;margin-bottom:1.3rem;
+  color:var(--green-primary);font-size:1.7rem;
+  border:2px solid var(--green-light);
+  box-shadow:0 4px 10px rgba(27,94,32,.1);
+}
+.card h3{margin-bottom:.8rem;color:var(--blue-text);font-size:1.12rem;font-weight:700;line-height:1.4;}
+.card p{font-size:.9rem;color:var(--text-muted);line-height:1.6;margin-bottom:.5rem;}
+.card .more{max-height:0;overflow:hidden;transition:max-height .5s ease;color:var(--text-muted);}
+.card.open .more{max-height:320px;padding-top:.5rem;}
+.card .toggle-hint{
+  font-size:.8rem;color:var(--green-primary);font-weight:700;margin-top:.8rem;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.card .toggle-hint i{transition:transform .3s;}
+.card.open .toggle-hint i{transform:rotate(180deg);}
+
+/* =========================================================
+   ANDAHUAYLAS / VULNERABILIDAD
+   ========================================================= */
+.andahuaylas-section{
+  background:var(--bg-card);
+  border-radius:26px;padding:3rem 2.5rem;
+  border:2px solid var(--green-light);
+  box-shadow:var(--card-shadow);margin:2rem 0;
+  position:relative;overflow:hidden;
+}
+.andahuaylas-section::before{
+  content:'';position:absolute;top:-50%;right:-10%;width:400px;height:400px;
+  background:radial-gradient(circle, rgba(76,175,80,.1) 0%, transparent 70%);
+  border-radius:50%;pointer-events:none;
+}
+.andahuaylas-content h3{
+  color:var(--blue-text);font-size:1.5rem;margin-bottom:1.3rem;
+  display:flex;align-items:center;gap:12px;font-weight:700;
+}
+.vulnerability-list{
+  list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+  gap:1.3rem;margin-top:1.5rem;
+}
+.vulnerability-list li{
+  background:var(--bg-light);padding:1.3rem 1.3rem 1.3rem 1.5rem;
+  border-radius:16px;border-left:4px solid var(--green-bright);
+  box-shadow:0 4px 15px rgba(27,94,32,.05);
+  font-size:.9rem;line-height:1.6;color:var(--text-main);
+  transition:all .3s;position:relative;
+}
+.vulnerability-list li:hover{
+  border-left-color:var(--blue-text);
+  transform:translateX(5px);
+  box-shadow:0 8px 25px rgba(27,94,32,.15);
+}
+.vulnerability-list strong{
+  color:var(--blue-text);display:flex;align-items:center;gap:8px;
+  margin-bottom:8px;font-size:.98rem;
+}
+.vulnerability-list strong i{color:var(--green-bright);}
+
+/* =========================================================
+   CRONOGRAMA — Bordes con distintos tonos de verde
+   ========================================================= */
+.timeline{position:relative;max-width:860px;margin:0 auto;padding-left:20px;}
+.timeline::before{
+  content:'';position:absolute;left:120px;top:10px;bottom:10px;width:3px;
+  background:linear-gradient(to bottom, var(--green-light), var(--green-primary), var(--green-bright), var(--green-primary));
+  border-radius:3px;
+  box-shadow:0 0 10px rgba(76,175,80,.3);
+}
+.t-item{position:relative;padding:0 0 1.7rem 160px;animation:fadeInUp .7s ease-out;}
+.t-time{
+  position:absolute;left:0;top:0;width:100px;text-align:right;
+  font-weight:700;color:var(--green-primary);font-size:.82rem;line-height:1.35;
+  letter-spacing:.3px;
+}
+.t-dot{
+  position:absolute;left:115px;top:6px;width:14px;height:14px;border-radius:50%;
+  background:var(--green-primary);
+  border:3px solid var(--bg-light);
+  box-shadow:0 0 0 2px var(--green-bright), 0 0 15px var(--glow-green);
+  z-index:2;transition:all .3s;
+}
+.t-item:hover .t-dot{transform:scale(1.3);box-shadow:0 0 0 3px var(--green-bright), 0 0 25px var(--green-primary);}
+.t-item.minor .t-dot{
+  background:var(--green-light);width:10px;height:10px;left:117px;
+  box-shadow:0 0 0 2px var(--green-bright);
+}
+.t-item.lunch .t-dot{
+  background:var(--blue-text);width:16px;height:16px;left:114px;
+  box-shadow:0 0 0 3px var(--green-bright), 0 0 20px rgba(13,71,161,.4);
+}
+
+.t-card{
+  background:var(--bg-card);
+  border-radius:16px;padding:1.1rem 1.4rem;
+  border:2px solid var(--green-light);
+  border-left:5px solid var(--green-primary);
+  box-shadow:0 8px 20px rgba(27,94,32,.08);
+  transition:all .35s cubic-bezier(.2,.8,.2,1);
+  position:relative;overflow:hidden;
+}
+.t-card::before{
+  content:'';position:absolute;top:0;left:0;bottom:0;width:5px;
+  background:linear-gradient(to bottom,var(--green-bright),var(--blue-text));
+  opacity:0;transition:opacity .3s;
+}
+.t-item:hover .t-card{
+  transform:translateX(6px);
+  border-left-color:var(--blue-text);
+  box-shadow:0 12px 30px rgba(27,94,32,.15), -6px 0 20px rgba(76,175,80,.1);
+}
+.t-item:hover .t-card::before{opacity:1;}
+.t-card h4{color:var(--blue-text);font-size:1rem;margin-bottom:.35rem;font-weight:700;}
+.t-card p{font-size:.85rem;color:var(--text-muted);line-height:1.5;font-weight:500;}
+
+.t-item.minor .t-card{
+  background:rgba(255,255,255,.6);box-shadow:none;
+  border:2px dashed var(--green-light);
+  border-left:5px solid var(--green-bright);
+  padding:.6rem 1.2rem;font-size:.83rem;
+}
+.t-item.minor .t-card p{color:var(--green-primary);font-style:italic;font-weight:600;}
+.t-item.minor:hover .t-card{transform:translateX(3px);}
+
+.t-item.lunch .t-card{
+  border-left:5px solid var(--blue-text);
+  background:linear-gradient(160deg, rgba(13,71,161,.05), #ffffff);
+}
+.t-item.lunch .t-card h4{color:var(--blue-text);}
+
+/* =========================================================
+   UBICACIÓN
+   ========================================================= */
+.map-wrap{
+  display:grid;grid-template-columns:1.1fr 1fr;gap:2.2rem;align-items:center;
+  background:var(--bg-card);
+  border-radius:26px;border:2px solid var(--green-light);
+  box-shadow:var(--card-shadow);padding:2.2rem;
+}
+.map-visual{
+  background:linear-gradient(135deg, var(--bg-light), var(--bg-mid));
+  border-radius:20px;min-height:280px;position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  border:2px solid var(--green-light);
+}
+.map-visual::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 50%, rgba(76,175,80,.15), transparent 70%);
+}
+.map-visual .pin{
+  font-size:3rem;color:var(--blue-text);animation:bounce 2s infinite;
+  filter:drop-shadow(0 5px 10px rgba(13,71,161,.3));z-index:2;
+}
+.map-grid-lines{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(46,125,50,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(46,125,50,.08) 1px, transparent 1px);
+  background-size:34px 34px;
+}
+.map-info h3{color:var(--blue-text);margin-bottom:.9rem;font-size:1.25rem;display:flex;align-items:center;gap:10px;}
+.map-info h3 i{color:var(--green-bright);}
+.map-info p{margin-bottom:1.4rem;line-height:1.7;font-size:.93rem;color:var(--text-muted);font-weight:500;}
+@media (max-width:768px){.map-wrap{grid-template-columns:1fr;}}
+
+/* =========================================================
+   SLOGAN / FOOTER
+   ========================================================= */
+.slogan-banner{
+  background:linear-gradient(135deg, var(--green-primary), var(--green-bright));
+  color:#ffffff;text-align:center;padding:2.5rem 1.5rem;
+  font-size:1.15rem;font-weight:700;letter-spacing:.8px;margin-top:3rem;
+  position:relative;overflow:hidden;
+}
+.slogan-banner::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at center, rgba(255,255,255,.2), transparent 70%);
+}
+.slogan-banner span{position:relative;z-index:1;}
+footer{
+  background:#1b5e20;color:var(--bg-light);text-align:center;
+  padding:1.6rem;font-size:.82rem;font-weight:500;
+}
+
+/* =========================================================
+   WHATSAPP FLOTANTE
+   ========================================================= */
+.whatsapp-float{
+  position:fixed;bottom:calc(30px + env(safe-area-inset-bottom,0px));right:30px;
+  background:linear-gradient(135deg, #25d366, #128c7e);
+  color:white;width:60px;height:60px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:30px;text-decoration:none;z-index:1000;
+  box-shadow:0 8px 25px rgba(37,211,102,.5), 0 0 0 1px rgba(255,255,255,.2);
+  transition:transform .3s;
+}
+.whatsapp-float:hover{transform:scale(1.12) rotate(-8deg);}
+
+/* =========================================================
+   ANIMACIONES
+   ========================================================= */
+@keyframes fadeInUp{from{opacity:0;transform:translateY(35px);}to{opacity:1;transform:translateY(0);}}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(37,211,102,.7);}
+  70%{box-shadow:0 0 0 18px rgba(37,211,102,0);}
+  100%{box-shadow:0 0 0 0 rgba(37,211,102,0);}
+}
+.whatsapp-float{animation:pulse 2s infinite;}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width:768px){
+  .hero h1{font-size:1.75rem;}
+  .hero p{font-size:1rem;}
+  .nav-links{
+    position:fixed;top:66px;right:0;
+    background:rgba(232,245,233,.98);
+    backdrop-filter:blur(20px);
+    border-left:2px solid var(--green-light);
+    flex-direction:column;width:240px;padding:1.4rem;
+    border-radius:0 0 0 18px;transform:translateX(100%);
+    transition:transform .35s cubic-bezier(.2,.8,.2,1);gap:16px;
+  }
+  .nav-links.show{transform:translateX(0);}
+  .menu-toggle{display:block;}
+  .timeline::before{left:70px;}
+  .t-item{padding-left:105px;}
+  .t-time{width:60px;font-size:.72rem;}
+  .t-dot{left:65px;}
+  .t-item.minor .t-dot{left:67px;}
+  .t-item.lunch .t-dot{left:64px;}
+  .andahuaylas-section{padding:2rem 1.5rem;}
+  .section-title h2{font-size:1.6rem;}
+  .count-box{min-width:72px;padding:10px 14px;}
+  .count-box .num{font-size:1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- =========================================================
+     CAMPO DE COPOS DE NIEVE ANIMADOS (se generan con JS)
+     ========================================================= -->
+<div class="snow-field" id="snowField" aria-hidden="true"></div>
+
+<!-- =========================================================
+     HEADER
+     ========================================================= -->
+<header>
+  <div class="nav-container">
+    <div class="logo-box">
+      <img src="logo_epiam.png" alt="Logo EPIAM">
+      <span>UNAJMA | Ingeniería Ambiental</span>
+    </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú"><i class="fa-solid fa-bars"></i></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#sobre-el-foro">Ejes temáticos</a></li>
+      <li><a href="#cronograma">Cronograma</a></li>
+      <li><a href="#vulnerabilidad">Andahuaylas y GRD</a></li>
+      <li><a href="#ubicacion">Ubicación</a></li>
+      <li><a href="#contacto">Inscripciones</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+<section class="hero" id="inicio">
+  <div class="hero-content">
+    <span class="badge-organizer"><i class="fa-solid fa-seedling"></i> Escuela Profesional de Ingeniería Ambiental - UNAJMA</span>
+    <h1>I FORO REGIONAL SOBRE GESTIÓN DEL RIESGO DE DESASTRES Y VULNERABILIDAD CLIMÁTICA</h1>
+    <p>Un espacio académico y científico orientado a construir un futuro resiliente frente a los retos del cambio climático en la región Apurímac.</p>
+
+    <div class="countdown" id="countdown">
+      <div class="count-box"><span class="num" id="cd-dias">--</span><span class="lbl">Días</span></div>
+      <div class="count-box"><span class="num" id="cd-horas">--</span><span class="lbl">Horas</span></div>
+      <div class="count-box"><span class="num" id="cd-min">--</span><span class="lbl">Min</span></div>
+      <div class="count-box"><span class="num" id="cd-seg">--</span><span class="lbl">Seg</span></div>
+    </div>
+
+    <div class="hero-details">
+      <div class="detail-card"><i class="fa-regular fa-calendar-days"></i><span>Viernes, 16 de octubre de 2026</span></div>
+      <!-- CAMBIO: Ahora es un enlace a Google Maps -->
+      <a href="https://maps.app.goo.gl/fYp3DoWXXNpFjG7T9" target="_blank" class="detail-card">
+        <i class="fa-solid fa-location-dot"></i><span>Auditorio UNAJMA</span>
+      </a>
+    </div>
+
+    <div class="cta-row">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLScOTrWTtwK3OfaqhACXDuLQBO74Nwopw4pn26HGup9wbZnaww/viewform?usp=header" target="_blank" class="btn-cta secondary"><i class="fa-solid fa-pen-to-square"></i> Inscríbete aquí</a>
+      <a href="https://wa.me/51926847911?text=Hola,%20deseo%20obtener%20m%C3%A1s%20informaci%C3%B3n%20e%20inscribirme%20en%20el%20I%20Foro%20Regional%20sobre%20GRD%20y%20Vulnerabilidad%20Clim%C3%A1tica" target="_blank" class="btn-cta"><i class="fa-brands fa-whatsapp"></i> WhatsApp: 926 847 911</a>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     EJES TEMÁTICOS
+     ========================================================= -->
+<section class="section" id="sobre-el-foro">
+  <div class="section-title"><h2>EJES TEMÁTICOS</h2><p>Toca cada tarjeta para ver más detalles</p></div>
+  <div class="grid-3">
+    <div class="card" onclick="this.classList.toggle('open')">
+      <div class="card-icon"><i class="fa-solid fa-cloud-showers-heavy"></i></div>
+      <h3>Variabilidad climática y amenazas prioritarias en Apurímac</h3>
+      <p>Diagnóstico del impacto regional de la variabilidad climática.</p>
+      <div class="more"><p>Análisis de sequías, heladas, incendios forestales y movimientos en masa (huaycos/deslizamientos) sobre la agricultura de subsistencia y el abastecimiento hídrico.</p></div>
+      <span class="toggle-hint">Ver más <i class="fa-solid fa-chevron-down"></i></span>
+    </div>
+    <div class="card" onclick="this.classList.toggle('open')">
+      <div class="card-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+      <h3>Planificación territorial e inversión pública en GRD</h3>
+      <p>Mecanismos para incorporar la gestión del riesgo en los instrumentos de planificación territorial.</p>
+      <div class="more"><p>Incorporación de la gestión prospectiva y correctiva del riesgo en los Planes de Desarrollo Concertado, el ordenamiento territorial y los proyectos de inversión pública locales y regionales.</p></div>
+      <span class="toggle-hint">Ver más <i class="fa-solid fa-chevron-down"></i></span>
+    </div>
+    <div class="card" onclick="this.classList.toggle('open')">
+      <div class="card-icon"><i class="fa-solid fa-people-group"></i></div>
+      <h3>Gobernanza, articulación interinstitucional y respuesta comunitaria</h3>
+      <p>Fortalecimiento del Voluntariado en Emergencias y Rehabilitación (VER) y redes comunitarias.</p>
+      <div class="more"><p>Coordinación efectiva entre el GORE Apurímac, los municipios, la academia y las comunidades campesinas para la respuesta ante desastres.</p></div>
+      <span class="toggle-hint">Ver más <i class="fa-solid fa-chevron-down"></i></span>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     CRONOGRAMA
+     ========================================================= -->
+<section class="section" id="cronograma">
+  <div class="section-title"><h2>CRONOGRAMA DEL EVENTO</h2><p>Viernes 16 de octubre de 2026 · Auditorio central UNAJMA</p></div>
+  <div class="timeline">
+    <div class="t-item"><div class="t-time">08:00<br>09:00</div><div class="t-dot"></div><div class="t-card"><h4>Inscripción de participantes</h4><p>Registro de asistentes al I Foro Regional sobre GRD y Vulnerabilidad Climática.</p></div></div>
+    <div class="t-item"><div class="t-time">09:00<br>10:00</div><div class="t-dot"></div><div class="t-card"><h4>Inauguración del foro</h4><p>Ceremonia de apertura oficial del evento.</p></div></div>
+    <div class="t-item"><div class="t-time">10:00<br>10:45</div><div class="t-dot"></div><div class="t-card"><h4>Variabilidad climática</h4><p>Diagnóstico del impacto regional.</p></div></div>
+    <div class="t-item minor"><div class="t-time">10:45<br>11:00</div><div class="t-dot"></div><div class="t-card"><p>Ronda de preguntas</p></div></div>
+    <div class="t-item"><div class="t-time">11:00<br>11:45</div><div class="t-dot"></div><div class="t-card"><h4>Amenazas prioritarias en Apurímac</h4><p>Sequías, heladas, incendios forestales y movimientos en masa sobre la agricultura y el agua.</p></div></div>
+    <div class="t-item minor"><div class="t-time">11:45<br>12:00</div><div class="t-dot"></div><div class="t-card"><p>Ronda de preguntas</p></div></div>
+    <div class="t-item"><div class="t-time">12:00<br>12:45</div><div class="t-dot"></div><div class="t-card"><h4>Planificación territorial</h4><p>Incorporación de la gestión del riesgo en los instrumentos de planificación territorial.</p></div></div>
+    <div class="t-item minor"><div class="t-time">12:45<br>13:00</div><div class="t-dot"></div><div class="t-card"><p>Ronda de preguntas</p></div></div>
+    <div class="t-item lunch"><div class="t-time">13:00<br>15:00</div><div class="t-dot"></div><div class="t-card"><h4><i class="fa-solid fa-utensils"></i> Almuerzo</h4></div></div>
+    <div class="t-item"><div class="t-time">15:00<br>15:45</div><div class="t-dot"></div><div class="t-card"><h4>Inversión pública en gestión de riesgos</h4><p>Mecanismos en los Planes de Desarrollo Concertado y proyectos de inversión pública.</p></div></div>
+    <div class="t-item minor"><div class="t-time">15:45<br>16:00</div><div class="t-dot"></div><div class="t-card"><p>Ronda de preguntas</p></div></div>
+    <div class="t-item"><div class="t-time">16:00<br>16:45</div><div class="t-dot"></div><div class="t-card"><h4>Gobernanza y articulación interinstitucional</h4><p>VER, redes comunitarias y coordinación con el GORE Apurímac, municipios y academia.</p></div></div>
+    <div class="t-item minor"><div class="t-time">16:45<br>17:00</div><div class="t-dot"></div><div class="t-card"><p>Ronda de preguntas</p></div></div>
+    <div class="t-item"><div class="t-time">17:00<br>17:45</div><div class="t-dot"></div><div class="t-card"><h4>Respuesta comunitaria</h4><p>Fomento de la resiliencia comunitaria.</p></div></div>
+    <div class="t-item minor"><div class="t-time">17:45<br>18:00</div><div class="t-dot"></div><div class="t-card"><p>Ronda de preguntas y cierre</p></div></div>
+  </div>
+</section>
+
+<!-- =========================================================
+     VULNERABILIDAD CLIMÁTICA
+     ========================================================= -->
+<section class="section" id="vulnerabilidad">
+  <div class="andahuaylas-section">
+    <div class="andahuaylas-content">
+      <h3><i class="fa-solid fa-mountain-sun"></i> Vulnerabilidad climática en la región Apurímac</h3>
+      <p style="margin-bottom:1rem;color:var(--text-muted);font-weight:500;">La región de Apurímac se sitúa en una zona de alta sensibilidad ecológica y variabilidad climática por distintos fenómenos naturales. Este evento busca abordar de manera prioritaria sus principales retos:</p>
+      <ul class="vulnerability-list">
+        <li><strong><i class="fa-solid fa-cloud-showers-heavy"></i> Deslizamientos y huaycos</strong>Laderas inestables y lluvias intensas periódicas amenazan la infraestructura rural y urbana; se analizan las unidades de cuenca mediante estudios hidrológicos para comprender los tiempos de retorno.</li>
+        <li><strong><i class="fa-solid fa-snowflake"></i> Heladas y descenso de temperatura</strong>Fenómenos térmicos que impactan directamente en los cultivos de la agricultura familiar altiplánica y en la salud pública.</li>
+        <li><strong><i class="fa-solid fa-droplet-slash"></i> Seguridad hídrica</strong>Variabilidad de los regímenes de lluvia que afecta la disponibilidad de agua en las cabeceras de cuenca.</li>
+        <li><strong><i class="fa-solid fa-seedling"></i> Uso de suelos y resiliencia</strong>Promoción de la reforestación con especies arbóreas para mitigar la erosión y el arrastre de sedimentos en valles, recuperando las orillas del río con infraestructura natural.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     UBICACIÓN
+     ========================================================= -->
+<section class="section" id="ubicacion">
+  <div class="section-title"><h2>UBICACIÓN DEL EVENTO</h2></div>
+  <div class="map-wrap">
+    <div class="map-visual">
+      <div class="map-grid-lines"></div>
+      <i class="fa-solid fa-location-dot pin"></i>
+    </div>
+    <div class="map-info">
+      <h3><i class="fa-solid fa-building-columns"></i> Auditorio central - UNAJMA</h3>
+      <p>El foro se realizará en el Auditorio Central de la Universidad Nacional José María Arguedas, en Andahuaylas, Apurímac. Haz clic en el botón para abrir la ubicación exacta en Google Maps.</p>
+      <a href="https://maps.app.goo.gl/fYp3DoWXXNpFjG7T9" target="_blank" class="btn-cta secondary"><i class="fa-solid fa-map-location-dot"></i> Abrir ubicación en Google Maps</a>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     CONTACTO / INSCRIPCIONES
+     ========================================================= -->
+<section class="section" id="contacto">
+  <div class="section-title"><h2>¿Cómo Participar?</h2></div>
+  <div style="text-align:center;max-width:640px;margin:0 auto;background:var(--bg-card);padding:2.5rem;border-radius:26px;border:2px solid var(--green-light);box-shadow:var(--card-shadow);">
+    <i class="fa-solid fa-id-card" style="font-size:3rem;color:var(--green-bright);margin-bottom:1.2rem;filter:drop-shadow(0 0 15px rgba(76,175,80,.3));"></i>
+    <h3 style="color:var(--blue-text);margin-bottom:1rem;font-size:1.4rem;">Inscripciones abiertas</h3>
+    <p style="margin-bottom:1.8rem;color:var(--text-muted);font-weight:500;">Asegura tu participación en este foro clave organizado por la Universidad Nacional José María Arguedas (UNAJMA).</p>
+    <div class="cta-row" style="justify-content:center;">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLScOTrWTtwK3OfaqhACXDuLQBO74Nwopw4pn26HGup9wbZnaww/viewform?usp=header" target="_blank" class="btn-cta secondary" style="font-size:1.02rem;"><i class="fa-solid fa-pen-to-square"></i> Inscríbete aquí</a>
+      <a href="https://wa.me/51926847911?text=Hola,%20deseo%20obtener%20m%C3%A1s%20informaci%C3%B3n%20e%20inscribirme%20en%20el%20I%20Foro%20Regional%20sobre%20GRD%20y%20Vulnerabilidad%20Clim%C3%A1tica" target="_blank" class="btn-cta" style="font-size:1.02rem;"><i class="fa-brands fa-whatsapp"></i> Escribir al 926 847 911</a>
+    </div>
+  </div>
+</section>
+
+<div class="slogan-banner"><span>🌿 INGENIERÍA AMBIENTAL: Construyendo un futuro resiliente 🌿</span></div>
+<footer>Organizado por la Escuela Profesional de Ingeniería Ambiental</footer>
+
+<a href="https://wa.me/51926847911?text=Hola,%20deseo%20obtener%20informaci%C3%B3n%20de%20las%20inscripciones%20para%20el%20I%20Foro%20Regional" class="whatsapp-float" target="_blank" title="Solicitar información por WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+
+<!-- =========================================================
+     SCRIPT — Copos de nieve, countdown, menú, animaciones
+     ========================================================= -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  /* ---------------------------------------------------------
+     1) GENERADOR DE COPOS DE NIEVE
+     Usamos un SVG inline de copo de nieve que se repite con
+     posiciones y velocidades aleatorias.
+     --------------------------------------------------------- */
+  try {
+    var field = document.getElementById('snowField');
+    // SVG de un copo de nieve de 6 puntas
+    var snowflakeSVG = '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
+      '<g stroke="currentColor" stroke-width="6" stroke-linecap="round" fill="none">' +
+        '<line x1="50" y1="10" x2="50" y2="90"/>' +
+        '<line x1="15" y1="30" x2="85" y2="70"/>' +
+        '<line x1="15" y1="70" x2="85" y2="30"/>' +
+        '<path d="M50 25 L40 15 M50 25 L60 15"/>' +
+        '<path d="M50 75 L40 85 M50 75 L60 85"/>' +
+        '<path d="M30 40 L20 30 M30 40 L25 50"/>' +
+        '<path d="M70 60 L80 70 M70 60 L75 50"/>' +
+        '<path d="M30 60 L20 70 M30 60 L25 50"/>' +
+        '<path d="M70 40 L80 30 M70 40 L75 50"/>' +
+        '<circle cx="50" cy="50" r="4" fill="currentColor"/>' +
+      '</g></svg>';
+
+    var totalSnowflakes = 20; // Cantidad de copos
+    for (var i = 0; i < totalSnowflakes; i++) {
+      var s = document.createElement('div');
+      s.className = 'snowflake';
+      s.innerHTML = snowflakeSVG;
+      // Tamaño aleatorio entre 15px y 40px
+      var size = Math.random() * 25 + 15;
+      s.style.width = size + 'px';
+      s.style.height = size + 'px';
+      // Posición horizontal aleatoria
+      s.style.left = (Math.random() * 98) + '%';
+      // Duración y retraso aleatorios
+      s.style.animationDuration = (Math.random() * 10 + 10) + 's';
+      s.style.animationDelay = (Math.random() * 10) + 's';
+      field.appendChild(s);
+    }
+  } catch (e) { console.warn('Snowflake error:', e); }
+
+  /* ---------------------------------------------------------
+     2) ANIMACIÓN DE ENTRADA POR SCROLL (IntersectionObserver)
+     --------------------------------------------------------- */
+  try {
+    var animated = document.querySelectorAll('.card, .andahuaylas-section, .map-wrap, .t-item');
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = 1;
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.08 });
+
+    animated.forEach(function (el, idx) {
+      el.style.opacity = 0;
+      el.style.transform = 'translateY(35px)';
+      el.style.transition = 'all .8s cubic-bezier(.2,.8,.2,1) ' + (idx % 3) * 0.08 + 's';
+      observer.observe(el);
+    });
+  } catch (e) {}
+
+  /* ---------------------------------------------------------
+     3) MENÚ HAMBURGUESA
+     --------------------------------------------------------- */
+  var toggle = document.getElementById('menuToggle');
+  var links = document.getElementById('navLinks');
+  if (toggle && links) {
+    toggle.addEventListener('click', function () { links.classList.toggle('show'); });
+    links.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { links.classList.remove('show'); });
+    });
+  }
+
+  /* ---------------------------------------------------------
+     4) NAVEGACIÓN ACTIVA SEGÚN SCROLL
+     --------------------------------------------------------- */
+  try {
+    var navA = document.querySelectorAll('.nav-links a');
+    var sections = [];
+    navA.forEach(function (a) {
+      var id = a.getAttribute('href').slice(1);
+      var el = document.getElementById(id);
+      if (el) sections.push({ a: a, el: el });
+    });
+    window.addEventListener('scroll', function () {
+      var pos = window.scrollY + 120;
+      sections.forEach(function (s) {
+        if (pos >= s.el.offsetTop && pos < s.el.offsetTop + s.el.offsetHeight) {
+          navA.forEach(function (a) { a.classList.remove('active'); });
+          s.a.classList.add('active');
+        }
+      });
+    });
+  } catch (e) {}
+
+  /* ---------------------------------------------------------
+     5) CUENTA REGRESIVA
+     --------------------------------------------------------- */
+  try {
+    var target = new Date("2026-10-16T08:00:00-05:00").getTime();
+    var dEl = document.getElementById("cd-dias"),
+        hEl = document.getElementById("cd-horas"),
+        mEl = document.getElementById("cd-min"),
+        sEl = document.getElementById("cd-seg");
+
+    function tick() {
+      var diff = target - Date.now();
+      if (diff <= 0) {
+        dEl.textContent = "0"; hEl.textContent = "0"; mEl.textContent = "0"; sEl.textContent = "0";
+        return;
+      }
+      var d = Math.floor(diff / 86400000);
+      var h = Math.floor((diff % 86400000) / 3600000);
+      var m = Math.floor((diff % 3600000) / 60000);
+      var s = Math.floor((diff % 60000) / 1000);
+      dEl.textContent = d; hEl.textContent = h; mEl.textContent = m; sEl.textContent = s;
+    }
+    tick();
+    setInterval(tick, 1000);
+  } catch (e) {}
+});
+</script>
+</body>
+</html>
