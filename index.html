@@ -9,15 +9,17 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 /* =========================================================
-   VARIABLES GLOBALES — Paleta Verde Viva / Azul Intenso
+   VARIABLES GLOBALES — Paleta Verde Viva / Tema Invierno
    ========================================================= */
 :root{
-  --bg-light:#f7f7f7b5;      /* Verde muy claro (Fondo principal) */
-  --bg-mid:#fcfdfc00;        /* Verde claro (Fondo degradado) */
+  --bg-light:#eef9f3;       /* Verde-hielo muy claro (Fondo principal) */
+  --bg-mid:#d7f0e2;         /* Verde-hielo claro (Fondo degradado) */
+  --bg-frost:#ffffff;       /* Blanco escarcha (realces del fondo) */
   --bg-card:#fcfcf7;       /* Blanco (Fondo de las tarjetas) */
   --green-primary:#2e7d32; /* Verde oscuro (Botones y textos secundarios) */
   --green-bright:#4caf50;  /* Verde vivo (Acentos y brillos) */
   --green-light:#319134;   /* Verde pastel (Bordes y líneas) */
+  --green-deep:#0b3d22;    /* Verde muy oscuro (fondo del hero, invierno) */
   --blue-text:#142d17;     /* Azul intenso (Títulos principales) */
   --text-main:#0a0a0a;     /* Verde muy oscuro (Texto normal) */
   --text-muted:#000000;    /* Verde medio (Texto secundario) */
@@ -29,7 +31,12 @@
 }
 html{scroll-padding-top:80px;}
 body{
-  background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-mid) 100%);
+  background:
+    radial-gradient(circle at 12% 18%, rgba(255,255,255,.95) 0%, transparent 38%),
+    radial-gradient(circle at 88% 78%, rgba(255,255,255,.75) 0%, transparent 34%),
+    radial-gradient(circle at 70% 15%, rgba(255,255,255,.55) 0%, transparent 28%),
+    linear-gradient(160deg, var(--bg-light) 0%, var(--bg-mid) 50%, var(--bg-light) 100%);
+  background-attachment:fixed;
   color:var(--text-main);
   overflow-x:hidden;
   padding-top:env(safe-area-inset-top,0px);
@@ -44,7 +51,7 @@ body{
 .snow-field{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:1;}
 .snowflake{
   position:absolute;top:-10%;width:24px;height:24px;
-  color:#267c2b;
+  color:#C0C0C0;
   filter:drop-shadow(0 0 6px rgba(255,255,255,.8)) drop-shadow(0 0 12px rgba(100,181,246,.5));
   animation:fallSnow linear infinite;
   opacity:0;
@@ -95,18 +102,20 @@ header{
    ========================================================= */
 .hero{
   position:relative;min-height:100vh;
-  /* NUEVA LÍNEA CON LA IMAGEN DE FONDO Y UNA CAPA OSCURA */
-  background: linear-gradient(rgba(79, 239, 133, 0.65), rgba(18, 224, 59, 0.65)), url('fondo_hero.jpeg') no-repeat center center/cover;
+  /* FONDO INVIERNO: degradado verde profundo a verde-hielo, sin imagen externa */
+  background:
+    radial-gradient(ellipse at top, rgba(255,255,255,.18), transparent 60%),
+    linear-gradient(165deg, var(--green-deep) 0%, var(--green-primary) 42%, var(--green-bright) 72%, #cdeee0 100%);
   display:flex;align-items:center;justify-content:center;text-align:center;
-  color:#70dc6a; /* Cambié el color del texto a blanco para que resalte */
+  color:#ffffff;
   padding:9rem 1.5rem 5rem;overflow:hidden;
 }
 .hero::before{
   content:'';position:absolute;inset:0;opacity:.4;
   background-image:
-    radial-gradient(circle at 20% 30%, rgba(76,175,80,.4) 1px, transparent 1.5px),
-    radial-gradient(circle at 70% 60%, rgba(13,71,161,.2) 1px, transparent 1.5px),
-    radial-gradient(circle at 40% 80%, rgba(76,175,80,.3) 1px, transparent 1.5px);
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,.5) 1px, transparent 1.5px),
+    radial-gradient(circle at 70% 60%, rgba(255,255,255,.3) 1px, transparent 1.5px),
+    radial-gradient(circle at 40% 80%, rgba(255,255,255,.4) 1px, transparent 1.5px);
   background-size:140px 140px,180px 180px,110px 110px;
   animation:starsFloat 25s linear infinite;
 }
@@ -119,16 +128,16 @@ header{
   display:inline-block;padding:9px 22px;border-radius:50px;font-size:.78rem;
   font-weight:700;letter-spacing:1.2px;margin-bottom:1.6rem;text-transform:uppercase;
   color:var(--green-primary);
-  background:rgba(255,255,255,.7);
+  background:rgba(255,255,255,.85);
   border:2px solid var(--green-bright);
   box-shadow:0 4px 15px rgba(76,175,80,.2);
 }
 .hero h1{
   font-size:2.6rem;font-weight:800;line-height:1.2;margin-bottom:1.2rem;
-  color: var(--blue-text);
-  text-shadow: 0 2px 10px rgba(13,71,161,.15);
+  color:#ffffff;
+  text-shadow:0 2px 14px rgba(0,0,0,.35);
 }
-.hero p{font-size:1.08rem;margin-bottom:2rem;color:var(--text-main);font-weight:400;max-width:720px;margin-left:auto;margin-right:auto;}
+.hero p{font-size:1.08rem;margin-bottom:2rem;color:rgba(255,255,255,.95);font-weight:400;max-width:720px;margin-left:auto;margin-right:auto;text-shadow:0 1px 8px rgba(0,0,0,.25);}
 
 /* Contador */
 .countdown{display:flex;justify-content:center;gap:14px;margin-bottom:2.4rem;flex-wrap:wrap;}
@@ -660,7 +669,7 @@ document.addEventListener("DOMContentLoaded", function () {
         '<circle cx="50" cy="50" r="4" fill="currentColor"/>' +
       '</g></svg>';
 
-    var totalSnowflakes = 40; // Cantidad de copos
+    var totalSnowflakes = 30; // Cantidad de copos
     for (var i = 0; i < totalSnowflakes; i++) {
       var s = document.createElement('div');
       s.className = 'snowflake';
